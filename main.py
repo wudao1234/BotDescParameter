@@ -20,8 +20,11 @@ class BotDescParameter(BasePlugin):
     async def person_normal_message_received(self, ctx: EventContext):
         # 输出调试信息
         query = ctx.event.query
-        config = query.adapter.config
-        query.set_variable("adapter_config", json.dumps(config))
+
+        bot = await self.ap.bot_service.get_bot(query.bot_uuid)
+        query.set_variable("bot_config", json.dumps(bot, ensure_ascii=False))
+
+        query.set_variable("adapter_config", json.dumps(query.adapter.config, ensure_ascii=False))
 
     # 当收到群消息时触发
     @handler(GroupNormalMessageReceived)
