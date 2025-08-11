@@ -1,5 +1,6 @@
 from pkg.plugin.context import register, handler, llm_func, BasePlugin, APIHost, EventContext
 from pkg.plugin.events import *  # 导入事件类
+import json
 
 
 # 注册插件
@@ -19,14 +20,14 @@ class BotDescParameter(BasePlugin):
     async def person_normal_message_received(self, ctx: EventContext):
         query = ctx.event.query
         config = query.adapter.config
-        query.set_variable("adapter_config", "asdsdasdsa")
+        query.set_variable("adapter_config", json.dumps(config, ensure_ascii=False))
 
     # 当收到群消息时触发
     @handler(GroupNormalMessageReceived)
     async def group_normal_message_received(self, ctx: EventContext):
         query = ctx.event.query
         config = query.adapter.config
-        query.set_variable("adapter_config", "asdsdasdsa")
+        query.set_variable("adapter_config", json.dumps(config, ensure_ascii=False))
 
     # 插件卸载时触发
     def __del__(self):
