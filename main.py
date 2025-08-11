@@ -3,7 +3,7 @@ from pkg.plugin.events import *  # 导入事件类
 
 
 # 注册插件
-@register(name="BotDescParameter", description="BotDescParameter", version="0.1", author="wudao")
+@register(name="BotDescParameter", description="BotDescParameter", version="0.1.1", author="wudao")
 class BotDescParameter(BasePlugin):
 
     # 插件加载时触发
