@@ -4,7 +4,7 @@ import json
 
 
 # 注册插件
-@register(name="BotDescParameter", description="BotDescParameter", version="0.1.2", author="wudao")
+@register(name="BotDescParameter", description="BotDescParameter", version="1.0.0", author="wudao")
 class BotDescParameter(BasePlugin):
 
     # 插件加载时触发
@@ -18,20 +18,17 @@ class BotDescParameter(BasePlugin):
     # 当收到个人消息时触发
     @handler(PersonNormalMessageReceived)
     async def person_normal_message_received(self, ctx: EventContext):
-        # 输出调试信息
         query = ctx.event.query
-
         bot = await self.ap.bot_service.get_bot(query.bot_uuid)
         query.set_variable("bot_config", json.dumps(bot, ensure_ascii=False))
 
-        query.set_variable("adapter_config", json.dumps(query.adapter.config, ensure_ascii=False))
 
     # 当收到群消息时触发
     @handler(GroupNormalMessageReceived)
     async def group_normal_message_received(self, ctx: EventContext):
         query = ctx.event.query
-        config = query.adapter.config
-        query.set_variable("adapter_config", json.dumps({"name": "Alice", "age": 25}, ensure_ascii=False))
+        bot = await self.ap.bot_service.get_bot(query.bot_uuid)
+        query.set_variable("bot_config", json.dumps(bot, ensure_ascii=False))
 
     # 插件卸载时触发
     def __del__(self):
