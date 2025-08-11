@@ -18,6 +18,9 @@ class BotDescParameter(BasePlugin):
     @handler(PersonNormalMessageReceived)
     async def person_normal_message_received(self, ctx: EventContext):
         msg = ctx.event.text_message  # 这里的 event 即为 PersonNormalMessageReceived 的对象
+
+        query = ctx.event.query
+        query.set_variable("adapter_config", "asdsdasdsa")
         if msg == "hello":  # 如果消息为hello
 
             # 输出调试信息
@@ -26,7 +29,7 @@ class BotDescParameter(BasePlugin):
             # 增加变量变量
             query = ctx.event.query
             config = query.adapter.config
-            query.set_variable("adapter_config", config)
+            query.set_variable("adapter_config", "asdsdasdsa")
 
             # 回复消息 "hello, <发送者id>!"
             ctx.add_return("reply", ["hello, {}!,{}".format(ctx.event.sender_id,"asdsdasdsa")])
