@@ -18,6 +18,8 @@ class BotDescParameter(BasePlugin):
     # 当收到个人消息时触发
     @handler(PersonNormalMessageReceived)
     async def person_normal_message_received(self, ctx: EventContext):
+        # 输出调试信息
+        self.ap.logger.debug("hello, {}".format(ctx.event.sender_id))
         query = ctx.event.query
         config = query.adapter.config
         query.set_variable("adapter_config", config)
